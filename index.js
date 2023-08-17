@@ -28,7 +28,7 @@ app.post("/post", async (req, res) => {
       budget_per_person,
     });
     user.save();
-    res.send("user created successfully");
+    res.send({ msg: "user created successfully" });
   } catch (error) {
     console.log(error);
   }
@@ -49,7 +49,7 @@ app.delete("/delete/:id", async (req, res) => {
 
     let user = await UserModel.findByIdAndDelete(ID);
 
-    res.send("data deleted successfully");
+    res.send({ msg: "data deleted successfully" });
   } catch (error) {
     console.log(error);
   }
@@ -64,7 +64,7 @@ app.get("/filter/:destination/:sort", async (req, res) => {
       budget_per_person: sortby,
     });
     if (user.length == 0) {
-      res.send("No data found");
+      res.send({ msg: "No data found" });
     } else {
       res.send(user);
     }
@@ -78,7 +78,7 @@ app.get("/filter/:destination", async (req, res) => {
     let destination = req.params.destination;
     let user = await UserModel.find({ destination: destination });
     if (user.length == 0) {
-      res.send("No data found");
+      res.send({ msg: "No data found" });
     } else {
       res.send(user);
     }
@@ -92,7 +92,7 @@ app.get("/sorted/:sort", async (req, res) => {
     let sort = req.params.sort;
     let user = await UserModel.find().sort({ budget_per_person: sort });
     if (user.length == 0) {
-      res.send("No data found");
+      res.send({ msg: "No data found" });
     } else {
       res.send(user);
     }
